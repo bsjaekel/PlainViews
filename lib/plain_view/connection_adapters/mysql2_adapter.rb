@@ -52,7 +52,7 @@ module PlainView
         begin
           execute("SET SESSION sql_mode='ANSI'")
           row = execute("SHOW CREATE VIEW #{view}", name).each do |row|
-            return row[1] #convert_statement(row[1]) if row[0] == view
+            return row[1].gsub(/"/, "`") #convert_statement(row[1]) if row[0] == view
           end
         rescue ActiveRecord::StatementInvalid => e
           raise "No view called #{view} found"
