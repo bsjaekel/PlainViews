@@ -19,9 +19,11 @@ module PlainView
       end
       
       def base_tables(name = nil) #:nodoc:
-        tables = []
-        execute("SHOW FULL TABLES WHERE TABLE_TYPE='BASE TABLE'").each{|row| tables << row[0]}
-        tables
+        execute("SHOW FULL TABLES WHERE TABLE_TYPE='BASE TABLE'").collect{|row| row[0]}
+      end
+
+      def tables_with_views_included(name = nil)
+	  	execute("SHOW FULL TABLES").collect {|row| row[0]}
       end
       
       alias nonview_tables base_tables
