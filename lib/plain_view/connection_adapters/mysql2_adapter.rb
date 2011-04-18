@@ -50,7 +50,7 @@ module PlainView
       # Get the view select statement for the specified table.
       def view_select_statement(view, name=nil)
         begin
-
+          execute("SET SESSION sql_mode='ANSI'")
           row = execute("SHOW CREATE VIEW #{view}", name).each do |row|
             return row[1] #convert_statement(row[1]) if row[0] == view
           end
